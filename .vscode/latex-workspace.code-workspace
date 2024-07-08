@@ -5,7 +5,9 @@
 		}
 	],
 	"settings": {
+		// change if needed
 		"ltex.additionalRules.motherTongue": "pl-PL",
+		"ltex.language": "pl-PL",
 		"explorer.excludeGitIgnore": true,
 		"latex-workshop.docker.image.latex": "pandoc/latex",
 		"latex-workshop.linting.chktex.enabled": true,
@@ -24,6 +26,5 @@
 			"-n46",
 			"-q",
 		],
-		"ltex.language": "pl-PL",
 	}
 }

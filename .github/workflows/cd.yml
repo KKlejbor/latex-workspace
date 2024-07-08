@@ -12,6 +12,8 @@ env:
     path_to_old_document: 'old-latex/main.tex'
     path_to_diff_document: 'changes.tex'
     path_to_diff_pdf: 'changes.pdf'
+permissions:
+  contents: write
 jobs:
     checkout_base_document:
         if: startsWith(github.event.pull_request.head.ref, 'latex')

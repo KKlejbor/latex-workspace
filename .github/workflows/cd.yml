@@ -22,7 +22,7 @@ jobs:
               with:
                 ref: ${{github.event.pull_request.base.sha}}
             - name: Copy old document
-              run: cp -r latex old-latex
+              run: cp -r . old-latex
             - name: Upload old document
               uses: actions/upload-artifact@v4.3.1
               with:

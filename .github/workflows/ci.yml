@@ -1,0 +1,21 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - 'main'
+env:
+    path_to_document: 'main.tex'
+    java_version: '22.0.1'
+    java_distribution: 'temurin'
+jobs:
+    build_latex:
+        if: startsWith(github.event.pull_request.head.ref, 'latex')
+        name: Build LaTeX Document
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4.1.1
+            - name: Build LaTeX document
+              uses: xu-cheng/latex-action@3.2.0
+              with:
+                root_file: ${{env.path_to_document}}

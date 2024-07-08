@@ -5,6 +5,7 @@ on:
     branches:
       - 'main'
 env:
+    latex_source_dir: 'latex'
     path_to_document: 'main.tex'
     path_to_pdf: 'main.pdf'
     path_to_artifact_pdf: 'pdf/main.pdf'
@@ -22,7 +23,7 @@ jobs:
               with:
                 ref: ${{github.event.pull_request.base.sha}}
             - name: Copy old document
-              run: cp -r . old-latex
+              run: cp -r latex old-latex
             - name: Upload old document
               uses: actions/upload-artifact@v4.3.1
               with:
@@ -39,12 +40,13 @@ jobs:
             - name: Build LaTeX document
               uses: xu-cheng/latex-action@3.2.0
               with:
+                working_directory: ${{env.latex_source_dir}}
                 root_file: ${{env.path_to_document}}
             - name: Upload PDF
               uses: actions/upload-artifact@v4.3.1
               with:
                 name: pdf
-                path: ${{env.path_to_pdf}}
+                path: ${{env.latex_source_dir}}/${{env.path_to_pdf}}
     
     create_latex_release:
         name: Create a release with changes
@@ -58,7 +60,7 @@ jobs:
             - name: Download all artifacts
               uses: actions/download-artifact@v4.1.4
             - name: Create diff document
-              run: latexdiff ${{env.path_to_old_document}} ${{env.path_to_document}} > ${{env.path_to_diff_document}}
+              run: latexdiff ${{env.path_to_old_document}} ${{env.latex_source_dir}}/${{env.path_to_document}} > ${{env.path_to_diff_document}}
             - name: Build diff document
               uses: xu-cheng/latex-action@3.2.0
               with:
